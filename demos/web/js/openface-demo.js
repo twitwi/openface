@@ -207,9 +207,11 @@ function createSocket(address, name) {
             h += "</ul>"
             $("#peopleInVideo").html(h);
         } else if (j.type == "ANNOTATED") {
-            $("#detectedFaces").html(
-                "<img src='" + j['content'] + "' width='430px'></img>"
-            )
+            var detectedFaces = $("#detectedFaces").get(0);
+            if (detectedFaces.children.length == 0) {
+                detectedFaces.appendChild(document.createElement('img'));
+            }
+            detectedFaces.children[0].src = j['content'];
         } else if (j.type == "TSNE_DATA") {
             BootstrapDialog.show({
                 message: "<img src='" + j['content'] + "' width='100%'></img>"
