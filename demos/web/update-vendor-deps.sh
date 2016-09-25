@@ -7,11 +7,12 @@ bower install
 rm -rf vendor
 mkdir -p vendor/{css,fonts,js}
 
-cp -r bower_components/bootstrap/dist/* vendor
-cp -r bower_components/bootstrap-toggle/css/*.min.css* vendor/css
-cp -r bower_components/bootstrap-toggle/js/*.min.js* vendor/js
-cp -r bower_components/bootstrap3-dialog/dist/* vendor
-cp -r bower_components/font-awesome/* vendor
+#cp -r bower_components/bootstrap/dist/* vendor
+#cp -r bower_components/bootstrap-toggle/css/*.min.css* vendor/css
+#cp -r bower_components/bootstrap-toggle/js/*.min.js* vendor/js
+#cp -r bower_components/bootstrap3-dialog/dist/* vendor
+#cp -r bower_components/font-awesome/* vendor
+cp -r bower_components/picnic/* vendor
 
 cp bower_components/jquery/dist/* vendor/js
 cp bower_components/handlebars/handlebars.min.js vendor/js

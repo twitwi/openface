@@ -26,17 +26,20 @@ limitations under the License.
         <link href="vendor/css/bootstrap-toggle.min.css" rel="stylesheet">
         <link href="vendor/css/bootstrap-dialog.min.css" rel="stylesheet">
         -->
+        <link href="vendor/picnic.min.css" rel="stylesheet">
         <link href="css/main.css" rel="stylesheet">
     </head>
     <body>
         <div class="container">
 
-            <input class="tabs" type="radio" name="bg"/>
+            <input class="mytabs" type="radio" name="bg" id="bgdetectedfaces"/>
+            <label for="bgdetectedfaces" class="checkable">Detections</label>
             <div id="detectedFaces"></div>
 
-            <input class="tabs" type="radio" name="bg"/>
+            <input class="mytabs" type="radio" name="bg" id="bglive"/>
+            <label for="bglive" class="checkable">Live</label>
             <video id="videoel" preload="auto" loop></video>
-
+            
             <ul>
                 <li>Servers: <span id="serverStatus"></span></li>
                 <li>RTT: <span id="rtt-Local"></span></li>
