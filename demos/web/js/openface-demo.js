@@ -103,7 +103,7 @@ function redrawPeople() {
     var context = {people: people, images: images};
     $("#peopleTable").html(peopleTableTmpl(context));
 
-    var context = {people: people};
+    var context = {people: people, def: defaultPerson};
     $("#defaultPersonDropdown").html(defaultPersonTmpl(context));
 
     $("#peopleInfo").html(getPeopleInfoHtml());
@@ -264,11 +264,13 @@ function addPersonCallback(el) {
 
 function trainingChkCallback() {
     training = $("#trainingChk").prop('checked');
+    /*
     if (training) {
         makeTabActive("tab-preview");
     } else {
         makeTabActive("tab-annotated");
     }
+    */
     if (socket != null) {
         var msg = {
             'type': 'TRAINING',
@@ -327,30 +329,3 @@ function removeImage(hash) {
     }
 }
 
-function changeServerCallback() {
-    $(this).addClass("active").siblings().removeClass("active");
-    switch ($(this).html()) {
-    case "Local":
-        socket.close();
-        redrawPeople();
-        createSocket("ws:" + window.location.hostname + ":9000", "Local");
-        break;
-    case "CMU":
-        socket.close();
-        redrawPeople();
-        createSocket("ws://facerec.cmusatyalab.org:9000", "CMU");
-        break;
-    case "AWS East":
-        socket.close();
-        redrawPeople();
-        createSocket("ws://54.159.128.49:9000", "AWS-East");
-        break;
-    case "AWS West":
-        socket.close();
-        redrawPeople();
-        createSocket("ws://54.188.234.61:9000", "AWS-West");
-        break;
-    default:
-        alert("Unrecognized server: " + $(this.html()));
-    }
-}
