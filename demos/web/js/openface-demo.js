@@ -266,13 +266,11 @@ function addPersonCallback(el) {
 
 function trainingChkCallback() {
     training = $("#trainingChk").prop('checked');
-    /*
     if (training) {
-        makeTabActive("tab-preview");
+        document.getElementById("bglive").checked = true;
     } else {
-        makeTabActive("tab-annotated");
+        document.getElementById("bgdetectedfaces").checked = true;
     }
-    */
     if (socket != null) {
         var msg = {
             'type': 'TRAINING',
