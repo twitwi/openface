@@ -217,9 +217,11 @@ function createSocket(address, name) {
             }
             detectedFaces.children[0].src = j['content'];
         } else if (j.type == "TSNE_DATA") {
-            BootstrapDialog.show({
-                message: "<img src='" + j['content'] + "' width='100%'></img>"
-            });
+            var tsne = $("#tsnePopupImg").get(0);
+            if (tsne.children.length == 0) {
+                tsne.appendChild(document.createElement('img'));
+            }
+            tsne.children[0].src = j['content'];
         } else {
             console.log("Unrecognized message type: " + j.type);
         }

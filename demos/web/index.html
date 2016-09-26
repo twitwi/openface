@@ -62,9 +62,23 @@ limitations under the License.
                                 >
                         </select>
                     </h3>
+                    <label id="viewTSNEBtn" class="pseudo button" for="tsnePopup">TSNE</label>
                     <ul id="peopleTable">
                     </ul>
                 </div>
+            </div>
+
+            <div class="modal">
+                <input id="tsnePopup" type="checkbox" onchange="if (this.checked) viewTSNECallback()" />
+                <label for="tsnePopup" class="overlay"></label>
+                <article>
+                    <header>
+                        <h3>t-SNE</h3>
+                        <label for="tsnePopup" class="close">&times;</label>
+                    </header>
+                    <section class="content" id="tsnePopupImg">
+                    </section>
+                </article>
             </div>
             
             
@@ -159,7 +173,7 @@ limitations under the License.
      $("#addPersonBtn").click(addPersonCallback);
      $("#addPersonTxt").pressEnter(addPersonCallback);
      $("#trainingChk").change(trainingChkCallback);
-//     $("#viewTSNEBtn").click(viewTSNECallback);
+     $("#viewTSNEBtn").click(viewTSNECallback);
 
      redrawPeople();
      // createSocket("ws://facerec.cmusatyalab.org:9000", "CMU");
