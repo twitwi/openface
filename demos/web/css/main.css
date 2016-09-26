@@ -11,7 +11,31 @@ body, html {
     padding: 0;
     margin: 0;
     top: 0; bottom: 0;
-    left: 0; right: 0;
+    left: 0; right:0;
+}
+
+.controls {
+    position: absolute;
+    box-shadow: 0 0 3px black;
+    left: 0;
+    width: 5px;
+    background: translucent;
+    top: 80px;
+    bottom: 0;
+}
+.controls .content {
+    width: 400px;
+    font-size: 12px;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: black 2px 2px 2px;
+}
+.controls:not(:hover) {
+}
+.controls:not(:hover) .content {
+    transition: opacity 600ms linear 300ms, visibility 1ms linear 900ms;
+    opacity: 0;
+    visibility: hidden;
 }
 
 /* tab system */

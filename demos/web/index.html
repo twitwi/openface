@@ -35,11 +35,13 @@ limitations under the License.
             <input class="mytabs" type="radio" name="bg" id="bgdetectedfaces"/>
             <label for="bgdetectedfaces" class="checkable">Detections</label>
             <div id="detectedFaces"></div>
-
+            <br/>
             <input class="mytabs" type="radio" name="bg" id="bglive"/>
             <label for="bglive" class="checkable">Live</label>
             <video id="videoel" preload="auto" loop></video>
-            
+
+            <div class="controls">
+                <div class="content">
             <ul>
                 <li>Servers: <span id="serverStatus"></span></li>
                 <li>RTT: <span id="rtt-Local"></span></li>
@@ -48,9 +50,11 @@ limitations under the License.
                     <button class="btn btn-default" type="button" id="addPersonBtn">
                         Add Person
                     </button>
-                    </span>
                 </li>
             </ul>
+                </div>
+            </div>
+
 
             <!--
             <div class="content">
