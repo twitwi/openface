@@ -112,7 +112,9 @@ function redrawPeople() {
 function getDataURLFromRGB(rgb) {
     var rgbLen = rgb.length;
 
-    var canvas = $('<canvas/>').width(96).height(96)[0];
+    var canvas = document.createElement('canvas');
+    canvas.width = 96;
+    canvas.height = 96;
     var ctx = canvas.getContext("2d");
     var imageData = ctx.createImageData(96, 96);
     var data = imageData.data;
