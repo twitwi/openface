@@ -216,6 +216,20 @@ function createSocket(address, name) {
                 detectedFaces.appendChild(document.createElement('img'));
             }
             detectedFaces.children[0].src = j['content'];
+        } else if (j.type == "LIVE_BBOX") {
+            var m = j['content'];
+            $(".facebbox").css({
+                left: (m[0]/400*100)+'%',
+                top: (m[1]/300*100)+'%',
+                width: ((m[2]-m[0])/400*100)+'%',
+                height: ((m[3]-m[1])/300*100)+'%'
+            });
+            $(".facename").text(m[4]);
+            var context = {landmarks: m[5].map(function(l) {
+                return [ (l[0] / 400 * 100)+'%', (l[1] / 300 * 100)+'%' ]; 
+            }) };
+            $(".facepoints").html(facePointsTmpl(context));
+            
         } else if (j.type == "TSNE_DATA") {
             var tsne = $("#tsnePopupImg").get(0);
             if (tsne.children.length == 0) {

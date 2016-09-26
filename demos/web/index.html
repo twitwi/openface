@@ -38,7 +38,18 @@ limitations under the License.
             <br/>
             <input class="mytabs" type="radio" name="bg" id="bglive"/>
             <label for="bglive" class="checkable">Live</label>
-            <video id="videoel" preload="auto" loop></video>
+            <div id="videoelcont">
+                <video id="videoel" preload="auto" loop></video>
+                <div class="facebbox">
+                    <div class="facename"></div>
+                </div>
+                <div class="facepoints"></div>
+                <script id="facePointsTmpl" type="text/x-handlebars-template">
+                    {{#each landmarks as |l|}}
+                    <div class="facepoint" style="left: {{l.[0]}} ; top: {{l.[1]}}"></div>
+                    {{/each}}
+                </script>
+            </div>
 
             <div class="controls">
                 <div class="content">
@@ -102,6 +113,11 @@ limitations under the License.
             </script>
             
             <script id="defaultPersonTmpl" type="text/x-handlebars-template">
+                <option 
+                     {{#ifEq def -1}}
+                     selected
+                     {{/ifEq}}
+                     >unknown</option>
                 {{#each people as |p ind|}}
                 <option
                      {{#ifEq ind ../def}}
@@ -111,26 +127,6 @@ limitations under the License.
                 {{/each}}
             </script>
 
-
-
-            <!--
-            <div class="content">
-                <h2>People in Video</h2>
-                <div id="peopleInVideo"></div>
-
-                <h2>Servers: <span id="serverStatus"></span></h2>
-                <div class="btn-group" role="group" id="serverBtn">
-                    <button type="button" class="btn btn-default active">Local</button>
-                </div>
-
-                <div>
-                    <button class="btn btn-default" type="button"
-                            id="viewTSNEBtn">
-                        Visualize with TSNE
-                    </button>
-                </div>
-            </div>
-            -->
         </div>
     </body>
     <script src="vendor/js/jquery.min.js"></script>
@@ -145,6 +141,7 @@ limitations under the License.
 
      var defaultPersonTmpl = Handlebars.compile($("#defaultPersonTmpl").html()),
         peopleTableTmpl = Handlebars.compile($("#peopleTableTmpl").html());
+        facePointsTmpl = Handlebars.compile($("#facePointsTmpl").html());
 
      var vid = document.getElementById('videoel'),
          vidReady = false;
