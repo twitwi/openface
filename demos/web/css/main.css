@@ -73,6 +73,10 @@ input[type="radio"].mytabs:not(:checked)+*:not(label), input[type="radio"].mytab
     -ms-filter : fliph; /*IE*/
     filter : fliph; /*IE*/
 }
+#videoelannotations {
+    position: absolute;
+    outline: 10px solid black;
+}
 .facebbox {
     position: absolute;
     border: 4px solid cyan;

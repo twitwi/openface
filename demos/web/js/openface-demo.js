@@ -217,6 +217,23 @@ function createSocket(address, name) {
             }
             detectedFaces.children[0].src = j['content'];
         } else if (j.type == "LIVE_BBOX") {
+            /* adapt size */
+            var w = vid.videoWidth;
+            var h = vid.videoHeight;
+            var W = $("#videoel").width();
+            var H = $("#videoel").height();
+            if (w/h < W/H) {
+                $("#videoelannotations").css({
+                    top: 0, height: H+'px',
+                    left: ((W-H/h*w)/2)+'px', width: (H/h*w)+'px'
+                });
+            } else {
+                $("#videoelannotations").css({
+                    left: 0, width: W+'px',
+                    top: ((H-W/w*h)/2)+'px', height: (W/w*h)+'px'
+                });
+            }
+            
             var m = j['content'];
             $(".facebbox").css({
                 left: (m[0]/400*100)+'%',

@@ -37,15 +37,17 @@ limitations under the License.
             <input class="mytabs" type="radio" name="bg" id="bglive" checked/>
             <div id="videoelcont">
                 <video id="videoel" preload="auto" loop></video>
-                <div class="facebbox">
-                    <div class="facename"></div>
+                <div id="videoelannotations">
+                    <div class="facebbox">
+                        <div class="facename"></div>
+                    </div>
+                    <div class="facepoints"></div>
+                    <script id="facePointsTmpl" type="text/x-handlebars-template">
+                        {{#each landmarks as |l|}}
+                        <div class="facepoint" style="left: {{l.[0]}} ; top: {{l.[1]}}"></div>
+                        {{/each}}
+                    </script>
                 </div>
-                <div class="facepoints"></div>
-                <script id="facePointsTmpl" type="text/x-handlebars-template">
-                    {{#each landmarks as |l|}}
-                    <div class="facepoint" style="left: {{l.[0]}} ; top: {{l.[1]}}"></div>
-                    {{/each}}
-                </script>
             </div>
 
             <div class="controls">
