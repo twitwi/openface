@@ -77,6 +77,11 @@ input[type="radio"].mytabs:not(:checked)+*:not(label), input[type="radio"].mytab
     position: absolute;
     outline: 10px solid black;
 }
+
+#with-facepoints:not(:checked) ~ #videoelannotations .facepoints { display: none; }
+#with-bbox:not(:checked) ~ #videoelannotations .facebbox { border: 0; }
+#with-name:not(:checked) ~ #videoelannotations .facename { display: none; }
+
 .facebbox {
     position: absolute;
     border: 4px solid cyan;

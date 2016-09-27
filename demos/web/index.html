@@ -37,6 +37,9 @@ limitations under the License.
             <input class="mytabs" type="radio" name="bg" id="bglive" checked/>
             <div id="videoelcont">
                 <video id="videoel" preload="auto" loop></video>
+                <input id="with-facepoints" type="checkbox" checked/>
+                <input id="with-bbox" type="checkbox" checked/>
+                <input id="with-name" type="checkbox" checked/>
                 <div id="videoelannotations">
                     <div class="facebbox">
                         <div class="facename"></div>
@@ -76,7 +79,7 @@ limitations under the License.
                         </select>
                     </h3>
                     <label id="viewTSNEBtn" class="pseudo button" for="tsnePopup">TSNE</label>
-                    <label lass="pseudo button" for="moreActions">More</label>
+                    <label class="pseudo button" for="moreActions">More</label>
                     <ul id="peopleTable">
                     </ul>
                 </div>
@@ -87,7 +90,16 @@ limitations under the License.
                 <label for="moreActions" class="overlay"></label>
                 <article>
                     <header>
-                        <h3>t-SNE</h3>
+                        <h3>Options</h3>
+                        <label for="moreActions" class="close">&times;</label>
+                    </header>
+                    <section>
+                        <label><input type="checkbox" onchange="document.getElementById('with-facepoints').checked = this.checked" checked><span class="checkable">points</span></label>
+                        <label><input type="checkbox" onchange="document.getElementById('with-bbox').checked = this.checked" checked><span class="checkable">bbox</span></label>
+                        <label><input type="checkbox" onchange="document.getElementById('with-name').checked = this.checked" checked><span class="checkable">name</span></label>
+                    </section>
+                    <header>
+                        <h3>Load / Save</h3>
                         <label for="moreActions" class="close">&times;</label>
                     </header>
                     <section class="content">
