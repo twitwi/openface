@@ -345,3 +345,18 @@ function removeImage(hash) {
     }
 }
 
+function localStorageLoad(key) {
+    var data = JSON.parse(localStorage[key]);
+    people = data.people;
+    images = data.images;
+    sendState();
+    redrawPeople();
+}
+
+function localStorageSave(key) {
+    var data = {
+        people: people,
+        images: images
+    };
+    localStorage[key] = JSON.stringify(data);
+}

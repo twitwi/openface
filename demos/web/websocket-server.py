@@ -148,6 +148,7 @@ class OpenFaceServerProtocol(WebSocketServerProtocol):
         print("WebSocket connection closed: {0}".format(reason))
 
     def loadState(self, jsImages, training, jsPeople):
+        self.__init__()
         self.training = training
 
         for jsImage in jsImages:

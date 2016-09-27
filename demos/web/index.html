@@ -33,11 +33,8 @@ limitations under the License.
         <div class="container">
 
             <input class="mytabs" type="radio" name="bg" id="bgdetectedfaces"/>
-            <label for="bgdetectedfaces" class="checkable" checked>Detections</label>
             <div id="detectedFaces"></div>
-            <br/>
-            <input class="mytabs" type="radio" name="bg" id="bglive"/>
-            <label for="bglive" class="checkable">Live</label>
+            <input class="mytabs" type="radio" name="bg" id="bglive" checked/>
             <div id="videoelcont">
                 <video id="videoel" preload="auto" loop></video>
                 <div class="facebbox">
@@ -53,6 +50,9 @@ limitations under the License.
 
             <div class="controls">
                 <div class="content">
+                    <label for="bgdetectedfaces" class="checkable">Detections</label>
+                    <br/>
+                    <label for="bglive" class="checkable">Live</label>
                     <ul>
                         <li>Servers: <span id="serverStatus"></span></li>
                         <li>RTT: <span id="rtt-Local"></span></li>
@@ -74,9 +74,26 @@ limitations under the License.
                         </select>
                     </h3>
                     <label id="viewTSNEBtn" class="pseudo button" for="tsnePopup">TSNE</label>
+                    <label lass="pseudo button" for="moreActions">More</label>
                     <ul id="peopleTable">
                     </ul>
                 </div>
+            </div>
+
+            <div class="modal">
+                <input id="moreActions" type="checkbox" />
+                <label for="moreActions" class="overlay"></label>
+                <article>
+                    <header>
+                        <h3>t-SNE</h3>
+                        <label for="moreActions" class="close">&times;</label>
+                    </header>
+                    <section class="content">
+                        <button onclick="localStorageLoad('quick')">Quick Load</button>
+                        <button onclick="localStorageLoad('quick2')">Quick Load</button>
+                        <button onclick="localStorageSave('quick')">Quick Save</button>
+                    </section>
+                </article>
             </div>
 
             <div class="modal">
@@ -173,9 +190,6 @@ limitations under the License.
      $("#viewTSNEBtn").click(viewTSNECallback);
 
      redrawPeople();
-     // createSocket("ws://facerec.cmusatyalab.org:9000", "CMU");
-
-        
-        createSocket("ws:" + window.location.hostname + ":9000", "Local");
+     createSocket("ws:" + window.location.hostname + ":9000", "Local");
     </script>
 </html>
