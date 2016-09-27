@@ -90,8 +90,19 @@ limitations under the License.
                     </header>
                     <section class="content">
                         <button onclick="localStorageLoad('quick')">Quick Load</button>
-                        <button onclick="localStorageLoad('quick2')">Quick Load</button>
+                        <!--button onclick="localStorageLoad('quick2')">Quick Load</button-->
                         <button onclick="localStorageSave('quick')">Quick Save</button>
+                        <hr/>
+                        <div class="row four">
+                            <span class="fourth">Load:</span>
+                            <input class="three-fourth" type="file" accept="text/plain" onchange="loadFromFile(event)">
+                        </div>
+                        <hr/>
+                        <div class="row four">
+                            <button onclick="saveToFile()">Save</button>
+                            <span id="saveFileLinkContainer"></span>
+                        </div>
+                        
                     </section>
                 </article>
             </div>

@@ -345,18 +345,45 @@ function removeImage(hash) {
     }
 }
 
-function localStorageLoad(key) {
-    var data = JSON.parse(localStorage[key]);
+function updateDataFromObject(data) {
     people = data.people;
     images = data.images;
     sendState();
     redrawPeople();
 }
-
-function localStorageSave(key) {
-    var data = {
+function dataObject() {
+    return data = {
         people: people,
         images: images
     };
-    localStorage[key] = JSON.stringify(data);
+}
+
+function localStorageLoad(key) {
+    updateDataFromObject(JSON.parse(localStorage[key]));
+}
+
+function localStorageSave(key) {
+    localStorage[key] = JSON.stringify(dataObject());
+}
+
+function loadFromFile(event) {
+    var reader = new FileReader();
+    reader.onload = function(){
+        updateDataFromObject(JSON.parse(reader.result));
+        $(event.target).val('');
+    };
+    reader.readAsText(event.target.files[0]);
+}
+
+function saveToFile() {
+    var parts = [JSON.stringify(dataObject())];
+    var blob = new Blob(parts, {type : 'text/plain'});
+    var dataUrl = URL.createObjectURL(blob);
+    
+    var a = $("<a/>");
+    a.attr("download", "faces.txt");
+    a.attr("href", dataUrl);
+    a.html("download");
+    $("#saveFileLinkContainer").html("").append(a);
+    a.hide().fadeIn();
 }
