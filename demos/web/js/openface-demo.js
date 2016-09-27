@@ -74,7 +74,7 @@ function sendFrameLoop() {
         socket.send(JSON.stringify(msg));
         tok--;
     }
-    setTimeout(function() {requestAnimFrame(sendFrameLoop)}, 250);
+    setTimeout(function() {requestAnimFrame(sendFrameLoop)}, 1);
 }
 
 
@@ -100,6 +100,8 @@ function getPeopleInfoHtml() {
 }
 
 function redrawPeople() {
+    var nImages = images.length;
+    $(".nImages").text(nImages);
     var context = {people: people, images: images};
     $("#peopleTable").html(peopleTableTmpl(context));
 
@@ -299,12 +301,13 @@ function addPersonCallback(el) {
 
 function trainingChkCallback() {
     training = $("#trainingChk").prop('checked');
-    /*
     if (training) {
-        document.getElementById("bglive").checked = true;
+        $(".isTraining").prop("checked", true);
+        //document.getElementById("bglive").checked = true;
     } else {
-        document.getElementById("bgdetectedfaces").checked = true;
-    }*/
+        $(".isTraining").prop("checked", false);
+        //document.getElementById("bgdetectedfaces").checked = true;
+    }
     if (socket != null) {
         var msg = {
             'type': 'TRAINING',
