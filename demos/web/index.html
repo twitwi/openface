@@ -143,18 +143,18 @@ limitations under the License.
             </script>
             
             <script id="defaultPersonTmpl" type="text/x-handlebars-template">
-                <option 
-                     {{#ifEq def -1}}
-                     selected
-                     {{/ifEq}}
-                     >unknown</option>
                 {{#each people as |p ind|}}
                 <option
-                     {{#ifEq ind ../def}}
+                     {{#ifEq ind ../current}}
                      selected
                      {{/ifEq}}
                      >{{this}}</option>
                 {{/each}}
+                <option
+                     {{#ifEq -1 current}}
+                     selected
+                     {{/ifEq}}
+                     >Unknown</option>
             </script>
 
         </div>

@@ -103,7 +103,7 @@ function redrawPeople() {
     var context = {people: people, images: images};
     $("#peopleTable").html(peopleTableTmpl(context));
 
-    var context = {people: people, def: defaultPerson};
+    var context = {people: people, current: defaultPerson};
     $("#defaultPersonDropdown").html(defaultPersonTmpl(context));
 
     $("#peopleInfo").html(getPeopleInfoHtml());
@@ -299,11 +299,12 @@ function addPersonCallback(el) {
 
 function trainingChkCallback() {
     training = $("#trainingChk").prop('checked');
+    /*
     if (training) {
         document.getElementById("bglive").checked = true;
     } else {
         document.getElementById("bgdetectedfaces").checked = true;
-    }
+    }*/
     if (socket != null) {
         var msg = {
             'type': 'TRAINING',
