@@ -80,8 +80,10 @@ limitations under the License.
                         </select>
                     </h3>
                     <label id="viewTSNEBtn" class="pseudo button" for="tsnePopup">TSNE</label>
-                    <label class="pseudo button" for="moreActions">More</label>
                     (<span class="nImages"></span>)
+                    <label class="pseudo button" onclick="mode('a')">Mode-A</label>
+                    <label class="pseudo button" onclick="mode('b')">Mode-B</label>
+                    <label class="pseudo button" for="moreActions">More</label>
                     <ul id="peopleTable">
                     </ul>
                 </div>
@@ -218,5 +220,14 @@ limitations under the License.
 
      redrawPeople();
      createSocket("ws:" + window.location.hostname + ":9000", "Local");
+
+function mode(m) {
+    var l = [true, true, true];
+    if (m=='a') l = [true, true, false];
+    if (m=='b') l = [true, true, true];
+    document.getElementById('with-facepoints').checked = l[0];
+    document.getElementById('with-bbox').checked = l[1];
+    document.getElementById('with-name').checked = l[2];
+}
     </script>
 </html>
