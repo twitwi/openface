@@ -244,6 +244,13 @@ class OpenFaceServerProtocol(WebSocketServerProtocol):
             self.svm = GridSearchCV(SVC(C=1), param_grid, cv=5).fit(X, y)
 
     def processFrame(self, dataURL, identity):
+        import time
+        start = time.time()
+        ticks = [0]
+        def tick(what=""):
+            print("----", ticks[0], what, "----", time.time() - start)
+            ticks[0] += 1
+        
         head = "data:image/jpeg;base64,"
         assert(dataURL.startswith(head))
         imgdata = base64.b64decode(dataURL[len(head):])
@@ -267,7 +274,9 @@ class OpenFaceServerProtocol(WebSocketServerProtocol):
 
         identities = []
         # bbs = align.getAllFaceBoundingBoxes(rgbFrame)
+        tick('getbbox')
         bb = align.getLargestFaceBoundingBox(rgbFrame)
+        tick()
         bbs = [bb] if bb is not None else []
         for bb in bbs:
             # print(len(bbs))
@@ -278,6 +287,7 @@ class OpenFaceServerProtocol(WebSocketServerProtocol):
             if alignedFace is None:
                 continue
 
+            tick('hash')
             phash = str(imagehash.phash(Image.fromarray(alignedFace)))
             if phash in self.images:
                 identity = self.images[phash].identity
@@ -290,6 +300,7 @@ class OpenFaceServerProtocol(WebSocketServerProtocol):
                     # content = [str(x) for x in cv2.resize(alignedFace, (0,0),
                     # fx=0.5, fy=0.5).flatten()]
                     content = [str(x) for x in alignedFace.flatten()]
+
                     msg = {
                         "type": "NEW_IMAGE",
                         "hash": phash,
@@ -304,12 +315,15 @@ class OpenFaceServerProtocol(WebSocketServerProtocol):
                     elif len(self.people) == 1:
                         identity = 0
                     elif self.svm:
+                        tick('svm')
                         identity = self.svm.predict(rep)[0]
+                        tick('end svm')
                     else:
                         print("hhh")
                         identity = -1
                     if identity not in identities:
                         identities.append(identity)
+            tick('draw')
 
             if not self.training:
                 # bl = (bb.left(), bb.bottom())
@@ -323,7 +337,7 @@ class OpenFaceServerProtocol(WebSocketServerProtocol):
                     if len(self.people) == 1:
                         name = self.people[0]
                     else:
-                        name = "Unknown"
+                        name = "Visage"
                 else:
                     name = self.people[identity]
                 # cv2.putText(annotatedFrame, name, (bb.left(), bb.top() - 10),
@@ -336,6 +350,10 @@ class OpenFaceServerProtocol(WebSocketServerProtocol):
                 }
                 #print(json.dumps(msg))
                 self.sendMessage(json.dumps(msg))
+                
+            tick()
+
+        tick('render')
         if not self.training:
             msg = {
                 "type": "IDENTITIES",
@@ -343,12 +361,18 @@ class OpenFaceServerProtocol(WebSocketServerProtocol):
             }
             self.sendMessage(json.dumps(msg))
             
+            # tick('figure')
+            # plt.figure()
             # plt.imshow(annotatedFrame)
             # plt.xticks([])
             # plt.yticks([])
 
+            # tick('save fig')
+            # imgdata = StringIO.StringIO()
             # plt.savefig(imgdata, format='png')
             # imgdata.seek(0)
+            # tick('encode')
+            # content = 'data:image/png;base64,' + \
             #     urllib.quote(base64.b64encode(imgdata.buf))
             # msg = {
             #     "type": "ANNOTATED",
@@ -356,6 +380,7 @@ class OpenFaceServerProtocol(WebSocketServerProtocol):
             # }
             # plt.close()
             # self.sendMessage(json.dumps(msg))
+        tick('end render')
 
 if __name__ == '__main__':
     log.startLogging(sys.stdout)
